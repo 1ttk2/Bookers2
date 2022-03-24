@@ -1,0 +1,51 @@
+<div class="col-md-3">
+  <h2>User info</h2>
+    <%= image_tag user.get_profile_image(100,100) %>
+      <table class="table">
+       <tbody>
+          <tr>
+            <th>name</th>
+            <th><%= user.name %></th>
+          </tr>
+          <tr>
+            <th>introduction</th>
+            <th><%= user.introduction %></th>
+          </tr>
+       </tbody>
+      </table>
+        <div class="row">
+          <%= link_to edit_user_path(user.id), class: 'btn btn-outline-secondary btn-block' do %>
+          <i class="fas fa-user-cog"></i>
+          <% end %>
+        </div>
+      <h2 class="mt-3">New book</h2>
+        <form action="/books" accept-charset="UTF-8" method="post">
+          <input name="utf8" type="hidden" value="✓">
+          <input type="hidden" name="authenticity_token" value="5BjZXADIroLeaLq2fyGM3H8BhG/xK2hEhKU4n88uDKto5+rVIxa6Sb9Qn0NzQmo/st6+q4+saOu1qagqspmnug==">
+
+
+          <% if book.errors.any? %>
+            <%= book.errors.count %>件のエラーが発生しました
+              <ul>
+                <% book.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+          <% end %>
+
+         <%= form_with model: book do |f| %>
+          <div class="form-group">
+            <h3>Title</h3>
+            <%= f.text_field :title %>
+          </div>
+          <div class="form-group">
+            <h3>Opinion</h3>
+            <%= f.text_field :body %>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit 'Create Book', class: "btn btn-sm btn-success" %>
+          </div>
+         <% end %>
+        </from>
+</div>
